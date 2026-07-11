@@ -44,30 +44,30 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.14 0.02 275);
-  --foreground: oklch(0.98 0.005 270);
-  --card: oklch(0.18 0.02 275);
-  --card-foreground: oklch(0.98 0.005 270);
-  --popover: oklch(0.18 0.02 275);
-  --popover-foreground: oklch(0.98 0.005 270);
-  --primary: oklch(0.68 0.22 295);
-  --primary-foreground: oklch(0.14 0.02 275);
-  --secondary: oklch(0.22 0.02 275);
-  --secondary-foreground: oklch(0.98 0.005 270);
-  --muted: oklch(0.22 0.02 275);
-  --muted-foreground: oklch(0.72 0.03 270);
-  --accent: oklch(0.78 0.16 210);
-  --accent-foreground: oklch(0.14 0.02 275);
-  --destructive: oklch(0.65 0.24 25);
-  --destructive-foreground: oklch(0.98 0.005 270);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.68 0.22 295);
+  --background: oklch(0.14 0.005 60);
+  --foreground: oklch(0.96 0.01 80);
+  --card: oklch(0.17 0.005 60);
+  --card-foreground: oklch(0.96 0.01 80);
+  --popover: oklch(0.17 0.005 60);
+  --popover-foreground: oklch(0.96 0.01 80);
+  --primary: oklch(0.82 0.11 75);
+  --primary-foreground: oklch(0.14 0.005 60);
+  --secondary: oklch(0.22 0.005 60);
+  --secondary-foreground: oklch(0.96 0.01 80);
+  --muted: oklch(0.22 0.005 60);
+  --muted-foreground: oklch(0.68 0.01 70);
+  --accent: oklch(0.62 0.05 230);
+  --accent-foreground: oklch(0.96 0.01 80);
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.96 0.01 80);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.82 0.11 75);
 
-  --neon-purple: oklch(0.68 0.22 295);
-  --neon-cyan: oklch(0.82 0.16 210);
-  --neon-pink: oklch(0.72 0.24 340);
-  --glass: oklch(1 0 0 / 6%);
+  --neon-purple: oklch(0.82 0.11 75);
+  --neon-cyan: oklch(0.72 0.06 230);
+  --neon-pink: oklch(0.86 0.08 60);
+  --glass: oklch(1 0 0 / 5%);
 }
 
 .dark {
@@ -83,69 +83,55 @@
     scroll-behavior: smooth;
   }
   body {
-    background-color: #09090b;
+    background-color: #0a0a0b;
     color: var(--color-foreground);
     font-family: var(--font-sans);
     overflow-x: hidden;
-    cursor: none;
-  }
-  @media (max-width: 768px) {
-    body { cursor: auto; }
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
   ::selection {
-    background: color-mix(in oklab, var(--neon-purple) 60%, transparent);
+    background: color-mix(in oklab, var(--primary) 40%, transparent);
     color: white;
   }
   /* Custom scrollbar */
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: #0b0b10; }
+  ::-webkit-scrollbar-track { background: #0a0a0b; }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, oklch(0.68 0.22 295), oklch(0.78 0.16 210));
+    background: color-mix(in oklab, white 14%, transparent);
     border-radius: 10px;
   }
 }
 
 @utility glass {
-  background: linear-gradient(
-    135deg,
-    color-mix(in oklab, white 6%, transparent),
-    color-mix(in oklab, white 2%, transparent)
-  );
+  background: color-mix(in oklab, white 3%, transparent);
   backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid color-mix(in oklab, white 10%, transparent);
+  border: 1px solid color-mix(in oklab, white 8%, transparent);
 }
 
 @utility glass-strong {
-  background: linear-gradient(
-    135deg,
-    color-mix(in oklab, white 10%, transparent),
-    color-mix(in oklab, white 4%, transparent)
-  );
+  background: color-mix(in oklab, white 5%, transparent);
   backdrop-filter: blur(28px) saturate(160%);
-  border: 1px solid color-mix(in oklab, white 14%, transparent);
+  border: 1px solid color-mix(in oklab, white 10%, transparent);
 }
 
 @utility neon-border {
   box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--neon-purple) 60%, transparent),
-    0 0 24px -4px color-mix(in oklab, var(--neon-purple) 60%, transparent),
-    0 0 60px -20px color-mix(in oklab, var(--neon-cyan) 70%, transparent);
+    0 0 0 1px color-mix(in oklab, var(--primary) 30%, transparent),
+    0 20px 60px -20px color-mix(in oklab, black 80%, transparent);
 }
 
 @utility neon-text {
-  background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 50%, #f0abfc 100%);
+  background: linear-gradient(135deg, #f4e4c1 0%, #e8b96b 60%, #c99a4f 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 0 24px color-mix(in oklab, var(--neon-purple) 40%, transparent));
 }
 
 @utility gradient-text {
-  background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%);
+  background: linear-gradient(135deg, #f4f1ea 0%, #e8b96b 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -153,10 +139,9 @@
 
 @utility aurora-bg {
   background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, oklch(0.35 0.22 295 / 0.35), transparent 60%),
-    radial-gradient(ellipse 70% 60% at 85% 30%, oklch(0.45 0.2 210 / 0.28), transparent 60%),
-    radial-gradient(ellipse 60% 50% at 50% 100%, oklch(0.4 0.22 340 / 0.22), transparent 60%),
-    #09090b;
+    radial-gradient(ellipse 80% 60% at 15% 10%, oklch(0.28 0.04 75 / 0.35), transparent 60%),
+    radial-gradient(ellipse 70% 60% at 85% 40%, oklch(0.22 0.03 230 / 0.28), transparent 60%),
+    #0a0a0b;
 }
 
 @utility grid-bg {
