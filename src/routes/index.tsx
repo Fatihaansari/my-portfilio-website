@@ -5,29 +5,30 @@ import {
   Github,
   Linkedin,
   Mail,
-  MessageCircle,
   Download,
   ExternalLink,
   ArrowRight,
-  Sparkles,
   Award,
   GraduationCap,
   Send,
   X,
-  Phone,
   MapPin,
-  Code2,
+  Check,
 } from "lucide-react";
 import fatiha from "@/assets/portfolio/fatiha.jpeg";
 import {
   ScrollProgress,
-  AuroraBackground,
   LoadingScreen,
-  MagneticButton,
   BackToTop,
 } from "@/components/portfolio/effects";
-
-import { projects, stack, tools, services } from "@/components/portfolio/data";
+import {
+  projects,
+  stack,
+  tools,
+  services,
+  socials,
+  type Project,
+} from "@/components/portfolio/data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,18 +53,53 @@ export const Route = createFileRoute("/")({
 });
 
 const fadeUp = {
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 16 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
 };
+
+const GOLD = "#c9a24a";
+
+/* ---------------- Brand icons ---------------- */
+function BrandIcon({ brand, size = 16 }: { brand: string; size?: number }) {
+  const props = { width: size, height: size, viewBox: "0 0 24 24", fill: "currentColor" };
+  switch (brand) {
+    case "github":
+      return <Github size={size} />;
+    case "linkedin":
+      return <Linkedin size={size} />;
+    case "email":
+      return <Mail size={size} />;
+    case "freelancer":
+      return (
+        <svg {...props} aria-hidden="true">
+          <path d="M15.65 3l-1.3 3.35L18 6.7 15.65 3zM8.4 6.7l-3.7-.3L3 3l5.4 3.7zM12 8.2l-5.7.2L2.3 12l8.5-.2L12 8.2zm.6 0l1.2 3.6 7.9.2-3.9-3.6-5.2-.2zM11.6 12.4L4 12.7l7 8.3.6-8.6zm.7 0l.7 8.6 7-8.3-7.7-.3z" />
+        </svg>
+      );
+    case "contra":
+      return (
+        <svg {...props} aria-hidden="true">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c2.4 0 4.6-.85 6.32-2.26l-2.14-2.14A6.97 6.97 0 0 1 12 19a7 7 0 1 1 4.24-12.56l2.13-2.14A9.95 9.95 0 0 0 12 2z" />
+        </svg>
+      );
+    case "gumroad":
+      return (
+        <svg {...props} aria-hidden="true">
+          <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm.9 14.3h-2.1v-1.2c-2 0-3.6-1.6-3.6-3.7a4.7 4.7 0 0 1 4.7-4.7c2.3 0 4 1.5 4.4 3.5h-2.4a2.1 2.1 0 0 0-2-1.4 2.5 2.5 0 0 0-2.5 2.6 2.4 2.4 0 0 0 2.5 2.5h1.9v-1.5H10v-1.7h5.3v5.6h-2.4z" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
 
 function Portfolio() {
   const [loaded, setLoaded] = useState(false);
   const [activeProject, setActiveProject] = useState<number | null>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 1400);
+    const t = setTimeout(() => setLoaded(true), 900);
     return () => clearTimeout(t);
   }, []);
 
@@ -71,14 +107,11 @@ function Portfolio() {
     <div className="relative min-h-screen text-white">
       <LoadingScreen done={loaded} />
       <ScrollProgress />
-      <AuroraBackground />
       <BackToTop />
-
 
       <Nav />
       <main>
         <Hero />
-        <Marquee />
         <About />
         <Stack />
         <Tools />
@@ -108,19 +141,22 @@ function Nav() {
   const [open, setOpen] = useState(false);
   const links = [
     ["About", "#about"],
-    ["Stack", "#stack"],
+    ["Skills", "#stack"],
     ["Projects", "#projects"],
     ["Services", "#services"],
     ["Contact", "#contact"],
   ];
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
-      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl glass-strong px-5 py-3">
+      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-white/10 bg-black/60 px-5 py-3 backdrop-blur-xl">
         <a href="#top" className="flex items-center gap-2">
-          <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-purple-500 to-cyan-400 text-sm font-black text-black">
+          <div
+            className="grid h-9 w-9 place-items-center rounded-lg text-sm font-black text-black"
+            style={{ background: GOLD }}
+          >
             FA
           </div>
-          <span className="hidden font-display text-sm font-semibold tracking-wide sm:block">
+          <span className="hidden font-display text-sm font-semibold tracking-wide text-white sm:block">
             Fatiha Ansari
           </span>
         </a>
@@ -129,7 +165,7 @@ function Nav() {
             <a
               key={l}
               href={h}
-              className="rounded-full px-4 py-2 text-sm text-white/70 transition hover:bg-white/5 hover:text-white"
+              className="rounded-full px-4 py-2 text-sm text-white/70 transition hover:text-white"
             >
               {l}
             </a>
@@ -137,12 +173,13 @@ function Nav() {
         </nav>
         <a
           href="#contact"
-          className="hidden rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-5 py-2 text-sm font-semibold text-black transition hover:opacity-90 md:inline-flex"
+          className="hidden rounded-full px-5 py-2 text-sm font-semibold text-black md:inline-flex"
+          style={{ background: GOLD }}
         >
           Hire Me
         </a>
         <button
-          className="grid h-9 w-9 place-items-center rounded-lg glass md:hidden"
+          className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 md:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
@@ -152,10 +189,10 @@ function Nav() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="mx-auto mt-2 max-w-7xl rounded-2xl glass-strong p-3 md:hidden"
+            exit={{ opacity: 0, y: -6 }}
+            className="mx-auto mt-2 max-w-7xl rounded-2xl border border-white/10 bg-black/80 p-3 backdrop-blur-xl md:hidden"
           >
             {links.map(([l, h]) => (
               <a
@@ -179,22 +216,21 @@ function Hero() {
   return (
     <section id="top" className="relative px-4 pt-36 pb-24 sm:pt-44">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
-        {/* TEXT */}
         <div className="relative order-2 lg:order-1">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-white/60">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400/70" />
-              <span className="relative h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            </span>
+          <div
+            className="mb-6 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em]"
+            style={{ borderColor: `${GOLD}55`, color: GOLD }}
+          >
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: GOLD }} />
             Available for new projects — 2026
           </div>
 
           <h1 className="font-display text-[2.75rem] font-medium leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-[5rem]">
             Fatiha Ansari.
             <br />
-            <span className="text-white/40">Front-end engineer</span>
+            <span className="text-white/40">Front-end developer</span>
             <br />
-            <span className="neon-text">building refined interfaces.</span>
+            <span style={{ color: GOLD }}>crafting premium interfaces.</span>
           </h1>
 
           <p className="mt-8 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
@@ -206,14 +242,15 @@ function Hero() {
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
               href="#projects"
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-white/90"
+              className="group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90"
+              style={{ background: GOLD }}
             >
               View selected work
               <ArrowRight size={16} className="transition group-hover:translate-x-0.5" />
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white/90 transition hover:border-white/30 hover:bg-white/[0.04]"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/90 transition hover:border-white/40 hover:bg-white/[0.04]"
             >
               <Mail size={15} /> Get in touch
             </a>
@@ -226,34 +263,29 @@ function Hero() {
           </div>
 
           <div className="mt-14 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-8">
-            <div>
-              <div className="font-display text-2xl font-medium text-white">20+</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-white/40">Projects</div>
-            </div>
-            <div>
-              <div className="font-display text-2xl font-medium text-white">2+ yrs</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-white/40">Experience</div>
-            </div>
-            <div>
-              <div className="font-display text-2xl font-medium text-white">Karachi</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-white/40">Remote · Global</div>
-            </div>
+            <Stat n="20+" l="Projects" />
+            <Stat n="2+ yrs" l="Experience" />
+            <Stat n="Karachi" l="Remote · Global" />
           </div>
         </div>
 
-        {/* PHOTO */}
         <div className="relative order-1 mx-auto w-full max-w-sm lg:order-2">
           <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
             <img
               src={fatiha}
               alt="Fatiha Ansari, Front-End Developer"
               loading="eager"
-              className="aspect-[4/5] w-full object-cover grayscale-[15%]"
+              className="aspect-[4/5] w-full object-cover"
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
               <div>
-                <div className="text-[10px] uppercase tracking-[0.25em] text-white/60">Front-end Developer</div>
+                <div
+                  className="text-[10px] uppercase tracking-[0.25em]"
+                  style={{ color: GOLD }}
+                >
+                  Front-end Developer
+                </div>
                 <div className="mt-1 font-display text-lg text-white">Fatiha Ansari</div>
               </div>
               <div className="rounded-full border border-white/20 bg-black/40 px-2.5 py-1 text-[10px] uppercase tracking-widest text-white/80 backdrop-blur">
@@ -271,20 +303,11 @@ function Hero() {
   );
 }
 
-
-/* ---------------- MARQUEE ---------------- */
-function Marquee() {
-  const items = ["React", "TypeScript", "Tailwind CSS", "Next.js", "Framer Motion", "Figma", "REST APIs", "Vite", "Node", "GitHub"];
+function Stat({ n, l }: { n: string; l: string }) {
   return (
-    <div className="relative border-y border-white/5 bg-black/30 py-6 overflow-hidden">
-      <div className="flex animate-marquee whitespace-nowrap gap-12 text-2xl font-bold text-white/40 sm:text-3xl">
-        {[...items, ...items].map((t, i) => (
-          <span key={i} className="flex items-center gap-12">
-            <span className="hover:gradient-text">{t}</span>
-            <span className="text-purple-500/40">✦</span>
-          </span>
-        ))}
-      </div>
+    <div>
+      <div className="font-display text-2xl font-medium text-white">{n}</div>
+      <div className="mt-1 text-xs uppercase tracking-widest text-white/40">{l}</div>
     </div>
   );
 }
@@ -293,16 +316,19 @@ function Marquee() {
 function About() {
   const stats = [
     { n: "20+", l: "Projects Completed" },
-    { n: "15+", l: "Technologies Learned" },
+    { n: "15+", l: "Technologies" },
     { n: "5+", l: "Certificates" },
     { n: "10+", l: "Happy Clients" },
   ];
   return (
     <section id="about" className="relative px-4 py-28">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="About Me" title="Turning ideas into" gradient="premium interfaces" />
+        <SectionHeader eyebrow="About Me" title="Turning ideas into" accent="premium interfaces" />
         <div className="mt-14 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
-          <motion.div {...fadeUp} className="rounded-3xl glass-strong p-8 sm:p-10">
+          <motion.div
+            {...fadeUp}
+            className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 sm:p-10"
+          >
             <p className="text-lg leading-relaxed text-white/80">
               I'm <span className="font-semibold text-white">Fatiha Ansari</span>, a
               Front-End Developer passionate about building modern, responsive, and
@@ -318,27 +344,26 @@ function About() {
             </p>
             <div className="mt-8 flex flex-wrap gap-2">
               {["Karachi, Pakistan", "Front-End", "React", "Open to Work"].map((t) => (
-                <span key={t} className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/70">
+                <span
+                  key={t}
+                  className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/70"
+                >
                   {t}
                 </span>
               ))}
             </div>
           </motion.div>
           <div className="grid grid-cols-2 gap-4">
-            {stats.map((s, i) => (
+            {stats.map((s) => (
               <motion.div
                 key={s.l}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="group relative overflow-hidden rounded-2xl glass p-6 tilt-card tilt-card-inner"
+                {...fadeUp}
+                className="rounded-2xl border border-white/10 bg-white/[0.02] p-6"
               >
-                <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-purple-500/20 blur-2xl transition group-hover:bg-cyan-400/30" />
-                <div className="relative">
-                  <div className="font-display text-4xl font-black gradient-text">{s.n}</div>
-                  <div className="mt-2 text-sm text-white/70">{s.l}</div>
+                <div className="font-display text-4xl font-semibold" style={{ color: GOLD }}>
+                  {s.n}
                 </div>
+                <div className="mt-2 text-sm text-white/70">{s.l}</div>
               </motion.div>
             ))}
           </div>
@@ -353,28 +378,15 @@ function Stack() {
   return (
     <section id="stack" className="relative px-4 py-28">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="Tech Stack" title="The tools I use" gradient="every day" />
-        <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
-          {stack.map((s, i) => (
-            <motion.div
-              key={s.name}
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.03 }}
-              className="group relative overflow-hidden rounded-2xl glass p-5 text-center tilt-card tilt-card-inner"
+        <SectionHeader eyebrow="Skills" title="The tools I use" accent="every day" />
+        <div className="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+          {stack.map((s) => (
+            <div
+              key={s}
+              className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-4 text-center text-sm text-white/85 transition hover:border-white/25 hover:bg-white/[0.05]"
             >
-              <div
-                className="mx-auto grid h-12 w-12 place-items-center rounded-xl transition group-hover:scale-110"
-                style={{
-                  background: `linear-gradient(135deg, ${s.color}30, ${s.color}10)`,
-                  boxShadow: `0 0 30px -8px ${s.color}80`,
-                }}
-              >
-                <Code2 size={22} style={{ color: s.color }} />
-              </div>
-              <div className="mt-3 text-sm font-medium text-white/90">{s.name}</div>
-            </motion.div>
+              {s}
+            </div>
           ))}
         </div>
       </div>
@@ -387,17 +399,17 @@ function Tools() {
   return (
     <section className="relative px-4 py-20">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="Tools" title="My daily" gradient="workbench" />
-        <motion.div {...fadeUp} className="mt-12 flex flex-wrap justify-center gap-3">
+        <SectionHeader eyebrow="Tools" title="My daily" accent="workbench" />
+        <div className="mt-12 flex flex-wrap justify-center gap-2.5">
           {tools.map((t) => (
             <span
               key={t}
-              className="group cursor-default rounded-full glass px-5 py-2.5 text-sm text-white/80 transition hover:border-purple-400/50 hover:text-white hover:shadow-[0_0_24px_-4px_rgba(139,92,246,0.6)]"
+              className="rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 text-sm text-white/80 transition hover:border-white/25 hover:text-white"
             >
               {t}
             </span>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -408,16 +420,13 @@ function Projects({ onOpen }: { onOpen: (i: number) => void }) {
   return (
     <section id="projects" className="relative px-4 py-28">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="Featured Work" title="Selected" gradient="projects" />
+        <SectionHeader eyebrow="Featured Work" title="Selected" accent="projects" />
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
             <motion.article
               key={p.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: (i % 3) * 0.08 }}
-              className="group relative overflow-hidden rounded-3xl glass-strong tilt-card tilt-card-inner hover:neon-border"
+              {...fadeUp}
+              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] transition hover:border-white/25"
             >
               <button
                 onClick={() => onOpen(i)}
@@ -429,19 +438,23 @@ function Projects({ onOpen }: { onOpen: (i: number) => void }) {
                     src={p.image}
                     alt={p.title}
                     loading="lazy"
-                    className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute right-3 top-3 rounded-full glass px-3 py-1 text-[10px] uppercase tracking-widest text-white/80">
-                    Case Study
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
                 </div>
                 <div className="p-6">
-                  <h3 className="font-display text-xl font-bold text-white">{p.title}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm text-white/70">{p.description}</p>
+                  <h3 className="font-display text-xl font-semibold text-white">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-2 text-sm text-white/65">
+                    {p.description}
+                  </p>
                   <div className="mt-4 flex flex-wrap gap-1.5">
                     {p.tech.slice(0, 3).map((t) => (
-                      <span key={t} className="rounded-full border border-white/10 px-2.5 py-0.5 text-[11px] text-white/70">
+                      <span
+                        key={t}
+                        className="rounded-full border border-white/10 px-2.5 py-0.5 text-[11px] text-white/70"
+                      >
                         {t}
                       </span>
                     ))}
@@ -453,24 +466,31 @@ function Projects({ onOpen }: { onOpen: (i: number) => void }) {
                   </div>
                 </div>
               </button>
-              <div className="flex gap-2 border-t border-white/5 p-4">
-                <a
-                  href={p.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-4 py-2 text-xs font-semibold text-black"
-                >
-                  <ExternalLink size={13} /> Live Demo
-                </a>
-                <a
-                  href={p.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full glass px-4 py-2 text-xs font-semibold text-white/90 hover:bg-white/10"
-                >
-                  <Github size={13} /> GitHub
-                </a>
-              </div>
+              {(p.live || p.github) && (
+                <div className="flex gap-2 border-t border-white/5 p-4">
+                  {p.live && (
+                    <a
+                      href={p.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold text-black"
+                      style={{ background: GOLD }}
+                    >
+                      <ExternalLink size={13} /> Live Demo
+                    </a>
+                  )}
+                  {p.github && (
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white/90 hover:bg-white/10"
+                    >
+                      <Github size={13} /> GitHub
+                    </a>
+                  )}
+                </div>
+              )}
             </motion.article>
           ))}
         </div>
@@ -479,13 +499,7 @@ function Projects({ onOpen }: { onOpen: (i: number) => void }) {
   );
 }
 
-function ProjectModal({
-  project,
-  onClose,
-}: {
-  project: (typeof projects)[number];
-  onClose: () => void;
-}) {
+function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     document.addEventListener("keydown", onKey);
@@ -500,33 +514,36 @@ function ProjectModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] grid place-items-center bg-black/80 p-4 backdrop-blur-md"
+      className="fixed inset-0 z-[200] grid place-items-center bg-black/85 p-4 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.95, y: 20 }}
+        initial={{ scale: 0.97, y: 10 }}
         animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.95, y: 20 }}
+        exit={{ scale: 0.97, y: 10 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl glass-strong"
+        className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-white/10 bg-neutral-950"
       >
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full glass text-white hover:bg-white/10"
+          className="absolute right-4 top-4 z-10 grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-black/60 text-white hover:bg-white/10"
         >
           <X size={16} />
         </button>
         <img src={project.image} alt={project.title} className="max-h-[60vh] w-full object-cover" />
         <div className="p-8">
-          <h3 className="font-display text-3xl font-bold">{project.title}</h3>
+          <h3 className="font-display text-3xl font-semibold text-white">{project.title}</h3>
           <p className="mt-3 text-white/70">{project.description}</p>
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
             <div>
               <div className="text-xs uppercase tracking-widest text-white/50">Tech Stack</div>
               <div className="mt-2 flex flex-wrap gap-2">
                 {project.tech.map((t) => (
-                  <span key={t} className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80">
+                  <span
+                    key={t}
+                    className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/80"
+                  >
                     {t}
                   </span>
                 ))}
@@ -537,30 +554,37 @@ function ProjectModal({
               <ul className="mt-2 space-y-1 text-sm text-white/80">
                 {project.features.map((f) => (
                   <li key={f} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-cyan-400" /> {f}
+                    <Check size={14} className="mt-1" style={{ color: GOLD }} /> {f}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <div className="mt-6 flex gap-3">
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-5 py-2.5 text-sm font-semibold text-black"
-            >
-              <ExternalLink size={14} /> Live Demo
-            </a>
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full glass px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10"
-            >
-              <Github size={14} /> Source
-            </a>
-          </div>
+          {(project.live || project.github) && (
+            <div className="mt-6 flex flex-wrap gap-3">
+              {project.live && (
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-black"
+                  style={{ background: GOLD }}
+                >
+                  <ExternalLink size={14} /> Live Demo
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10"
+                >
+                  <Github size={14} /> Source
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </motion.div>
     </motion.div>
@@ -572,30 +596,21 @@ function Services() {
   return (
     <section id="services" className="relative px-4 py-28">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="Services" title="How I can" gradient="help you" />
-        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s, i) => (
-            <motion.div
-              key={s.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: (i % 6) * 0.05 }}
-              className="group relative overflow-hidden rounded-2xl glass p-6 tilt-card tilt-card-inner hover:border-purple-400/40"
+        <SectionHeader eyebrow="Services" title="How I can" accent="help you" />
+        <div className="mt-14 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s) => (
+            <div
+              key={s}
+              className="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-5 transition hover:border-white/25"
             >
-              <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 blur-2xl transition group-hover:from-purple-500/40 group-hover:to-cyan-400/40" />
-              <div className="relative flex items-start gap-4">
-                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl glass-strong text-2xl">
-                  {s.icon}
-                </div>
-                <div>
-                  <h3 className="font-display font-semibold text-white">{s.title}</h3>
-                  <p className="mt-1 text-xs text-white/60">
-                    Premium delivery, clean code, responsive & production-ready.
-                  </p>
-                </div>
+              <div
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-lg"
+                style={{ background: `${GOLD}22`, color: GOLD }}
+              >
+                <Check size={16} />
               </div>
-            </motion.div>
+              <div className="font-medium text-white/90">{s}</div>
+            </div>
           ))}
         </div>
       </div>
@@ -605,71 +620,32 @@ function Services() {
 
 /* ---------------- CERTIFICATES ---------------- */
 function Certificates() {
-  const [openCert, setOpenCert] = useState(false);
-  const certs = [
-    { title: "IT Essentials", org: "JDC IT Center", year: "2024" },
-  ];
+  const certs = [{ title: "IT Essentials", org: "JDC IT Center", year: "2024" }];
   return (
     <section id="certificates" className="relative px-4 py-28">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="Certificates" title="Recognized" gradient="learning" />
+        <SectionHeader eyebrow="Certificates" title="Recognized" accent="learning" />
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {certs.map((c) => (
-            <motion.button
+            <motion.div
               key={c.title}
-              onClick={() => setOpenCert(true)}
               {...fadeUp}
-              className="group relative overflow-hidden rounded-3xl glass-strong text-left tilt-card tilt-card-inner"
+              className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]"
             >
-              <div className="relative aspect-video grid place-items-center overflow-hidden bg-gradient-to-br from-purple-950/60 to-cyan-950/60">
-                <div className="text-center">
-                  <Award size={48} className="mx-auto text-cyan-400" />
-                  <div className="mt-2 text-xs text-white/60">Certificate placeholder</div>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="grid aspect-video place-items-center border-b border-white/5 bg-black/40">
+                <Award size={44} style={{ color: GOLD }} />
               </div>
               <div className="p-6">
-                <div className="text-xs uppercase tracking-widest text-cyan-400">{c.year}</div>
-                <h3 className="mt-1 font-display text-xl font-bold">{c.title}</h3>
+                <div className="text-xs uppercase tracking-widest" style={{ color: GOLD }}>
+                  {c.year}
+                </div>
+                <h3 className="mt-1 font-display text-xl font-semibold text-white">{c.title}</h3>
                 <p className="text-sm text-white/60">{c.org}</p>
               </div>
-            </motion.button>
+            </motion.div>
           ))}
         </div>
       </div>
-      <AnimatePresence>
-        {openCert && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setOpenCert(false)}
-            className="fixed inset-0 z-[200] grid place-items-center bg-black/85 p-4 backdrop-blur-md"
-          >
-            <motion.div
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative aspect-video w-full max-w-4xl rounded-2xl glass-strong grid place-items-center"
-            >
-              <button
-                onClick={() => setOpenCert(false)}
-                aria-label="Close"
-                className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full glass text-white"
-              >
-                <X size={16} />
-              </button>
-              <div className="text-center">
-                <Award size={80} className="mx-auto text-cyan-400" />
-                <div className="mt-4 font-display text-2xl">IT Essentials</div>
-                <div className="text-sm text-white/60">JDC IT Center · 2024</div>
-                <p className="mt-4 text-xs text-white/50">Upload certificate image here.</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
@@ -683,34 +659,28 @@ function Education() {
   return (
     <section id="education" className="relative px-4 py-28">
       <div className="mx-auto max-w-4xl">
-        <SectionHeader eyebrow="Education" title="Academic" gradient="journey" />
-        <div className="relative mt-14">
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 via-cyan-400 to-transparent sm:left-1/2" />
-          {items.map((it, i) => (
+        <SectionHeader eyebrow="Education" title="Academic" accent="journey" />
+        <div className="mt-14 space-y-4">
+          {items.map((it) => (
             <motion.div
               key={it.title}
-              initial={{ opacity: 0, x: i % 2 ? 30 : -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className={`relative mb-10 flex items-start gap-6 sm:justify-${i % 2 ? "start" : "end"}`}
+              {...fadeUp}
+              className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-6"
             >
-              <div className={`hidden w-1/2 sm:block ${i % 2 ? "order-2 pl-10" : "pr-10 text-right"}`}>
-                <div className="rounded-2xl glass-strong p-6">
-                  <div className="text-xs uppercase tracking-widest text-cyan-400">{it.year || "—"}</div>
-                  <div className="mt-1 font-display text-xl font-bold">{it.title}</div>
-                  <div className="mt-1 text-sm text-white/70">{it.org}</div>
-                </div>
+              <div
+                className="grid h-10 w-10 shrink-0 place-items-center rounded-lg"
+                style={{ background: `${GOLD}22`, color: GOLD }}
+              >
+                <GraduationCap size={18} />
               </div>
-              <div className="relative z-10 grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 text-black sm:absolute sm:left-1/2 sm:-translate-x-1/2">
-                <GraduationCap size={16} />
-              </div>
-              <div className={`flex-1 sm:hidden`}>
-                <div className="rounded-2xl glass-strong p-6">
-                  <div className="text-xs uppercase tracking-widest text-cyan-400">{it.year || "—"}</div>
-                  <div className="mt-1 font-display text-xl font-bold">{it.title}</div>
-                  <div className="mt-1 text-sm text-white/70">{it.org}</div>
+              <div className="flex-1">
+                <div className="text-xs uppercase tracking-widest" style={{ color: GOLD }}>
+                  {it.year || "—"}
                 </div>
+                <div className="mt-1 font-display text-lg font-semibold text-white">
+                  {it.title}
+                </div>
+                <div className="text-sm text-white/70">{it.org}</div>
               </div>
             </motion.div>
           ))}
@@ -722,39 +692,51 @@ function Education() {
 
 /* ---------------- GITHUB ---------------- */
 function GitHubSection() {
-  const cards = [
-    { title: "GitHub Stats", desc: "Public repos, stars & activity" },
-    { title: "Contribution Graph", desc: "Consistent contribution rhythm" },
-    { title: "Top Languages", desc: "JavaScript, TypeScript, CSS, HTML" },
-    { title: "GitHub Streak", desc: "Daily commits in progress" },
+  const repos = [
+    { name: "portfolio-website", desc: "Personal portfolio built with React & Tailwind CSS" },
+    { name: "restaurant-landing", desc: "Modern restaurant landing page with animations" },
+    { name: "amazon-clone", desc: "Pixel-accurate Amazon landing page clone" },
+    { name: "react-components", desc: "Reusable React + TypeScript UI components" },
   ];
   return (
     <section id="github" className="relative px-4 py-28">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="GitHub" title="Open source" gradient="activity" />
-        <div className="mt-14 grid gap-6 sm:grid-cols-2">
-          {cards.map((c, i) => (
-            <motion.div
-              key={c.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group relative aspect-[16/8] overflow-hidden rounded-3xl glass-strong p-6 tilt-card tilt-card-inner"
+        <SectionHeader eyebrow="GitHub" title="Explore my" accent="projects" />
+        <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-white/60">
+          View my complete portfolio of open-source work and personal projects on GitHub.
+        </p>
+        <div className="mt-10 flex justify-center">
+          <a
+            href="https://github.com/Fatihaansari"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-black"
+            style={{ background: GOLD }}
+          >
+            <Github size={16} /> View My GitHub Portfolio
+          </a>
+        </div>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          {repos.map((r) => (
+            <a
+              key={r.name}
+              href="https://github.com/Fatihaansari"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition hover:border-white/25"
             >
-              <div className="absolute inset-0 grid-bg opacity-30" />
-              <div className="relative flex h-full flex-col justify-between">
-                <div className="flex items-center gap-2 text-white/60">
-                  <Github size={16} />
-                  <span className="text-xs uppercase tracking-widest">{c.title}</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Github size={18} style={{ color: GOLD }} />
+                  <span className="font-display font-semibold text-white">{r.name}</span>
                 </div>
-                <div>
-                  <div className="font-display text-2xl font-bold gradient-text">{c.title}</div>
-                  <div className="mt-1 text-sm text-white/60">{c.desc}</div>
-                  <div className="mt-3 text-xs text-white/40">Placeholder — connect GitHub API</div>
-                </div>
+                <ExternalLink
+                  size={14}
+                  className="text-white/40 transition group-hover:text-white"
+                />
               </div>
-            </motion.div>
+              <p className="mt-3 text-sm text-white/65">{r.desc}</p>
+            </a>
           ))}
         </div>
       </div>
@@ -767,37 +749,64 @@ function Contact() {
   const [sent, setSent] = useState(false);
   const cards = [
     { icon: Mail, label: "Email", value: "fatihaansari786@gmail.com", href: "mailto:fatihaansari786@gmail.com" },
-    { icon: Github, label: "GitHub", value: "github.com/fatiha", href: "#" },
-    { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/fatiha-ansari-88967b3a7", href: "https://www.linkedin.com/in/fatiha-ansari-88967b3a7/" },
-    { icon: MessageCircle, label: "WhatsApp", value: "Available on request", href: "#" },
-    { icon: Download, label: "Resume", value: "Download PDF", href: "#" },
     { icon: MapPin, label: "Location", value: "Karachi, Pakistan", href: "#" },
   ];
   return (
     <section id="contact" className="relative px-4 py-28">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="Contact" title="Let's build" gradient="something great" />
+        <SectionHeader eyebrow="Contact" title="Let's build" accent="something great" />
+
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_1.2fr]">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {cards.map((c) => (
-              <a
-                key={c.label}
-                href={c.href}
-                target={c.href.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className="group relative overflow-hidden rounded-2xl glass p-5 transition hover:border-purple-400/40 hover:bg-white/[0.06]"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-purple-500/30 to-cyan-400/30 text-cyan-300">
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {cards.map((c) => (
+                <a
+                  key={c.label}
+                  href={c.href}
+                  target={c.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                  className="group flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition hover:border-white/25"
+                >
+                  <div
+                    className="grid h-10 w-10 place-items-center rounded-lg"
+                    style={{ background: `${GOLD}22`, color: GOLD }}
+                  >
                     <c.icon size={18} />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs uppercase tracking-widest text-white/50">{c.label}</div>
+                    <div className="text-xs uppercase tracking-widest text-white/50">
+                      {c.label}
+                    </div>
                     <div className="truncate text-sm text-white/90">{c.value}</div>
                   </div>
-                </div>
-              </a>
-            ))}
+                </a>
+              ))}
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
+              <div className="text-xs uppercase tracking-widest text-white/50">
+                Find me online
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                {socials.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 rounded-xl border border-white/10 px-3 py-2.5 text-sm text-white/85 transition hover:border-white/30 hover:bg-white/[0.05]"
+                  >
+                    <span
+                      className="grid h-8 w-8 place-items-center rounded-lg"
+                      style={{ background: `${GOLD}22`, color: GOLD }}
+                    >
+                      <BrandIcon brand={s.brand} size={14} />
+                    </span>
+                    {s.name}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
           <form
@@ -807,7 +816,7 @@ function Contact() {
               setTimeout(() => setSent(false), 3500);
               (e.currentTarget as HTMLFormElement).reset();
             }}
-            className="rounded-3xl glass-strong p-6 sm:p-8"
+            className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8"
           >
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Your Name" name="name" required />
@@ -817,29 +826,29 @@ function Contact() {
               <Field label="Subject" name="subject" />
             </div>
             <div className="mt-4">
-              <label className="mb-2 block text-xs uppercase tracking-widest text-white/50">Message</label>
+              <label className="mb-2 block text-xs uppercase tracking-widest text-white/50">
+                Message
+              </label>
               <textarea
                 name="message"
                 required
                 rows={5}
-                className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-purple-400/60 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+                className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
+                style={{ borderColor: undefined }}
                 placeholder="Tell me about your project..."
               />
             </div>
-            <MagneticButton
+            <button
               type="submit"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3 text-sm font-semibold text-black shadow-[0_10px_40px_-10px_rgba(139,92,246,0.8)]"
+              className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90"
+              style={{ background: GOLD }}
             >
               <Send size={15} /> {sent ? "Message Sent ✓" : "Send Message"}
-            </MagneticButton>
+            </button>
             {sent && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="mt-3 text-xs text-emerald-400"
-              >
+              <p className="mt-3 text-xs" style={{ color: GOLD }}>
                 Thanks! I'll get back to you shortly.
-              </motion.p>
+              </p>
             )}
           </form>
         </div>
@@ -848,13 +857,18 @@ function Contact() {
   );
 }
 
-function Field({ label, ...rest }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
+function Field({
+  label,
+  ...rest
+}: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <div>
-      <label className="mb-2 block text-xs uppercase tracking-widest text-white/50">{label}</label>
+      <label className="mb-2 block text-xs uppercase tracking-widest text-white/50">
+        {label}
+      </label>
       <input
         {...rest}
-        className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-purple-400/60 focus:outline-none focus:ring-2 focus:ring-purple-500/20"
+        className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-white/40 focus:outline-none"
       />
     </div>
   );
@@ -863,14 +877,17 @@ function Field({ label, ...rest }: { label: string } & React.InputHTMLAttributes
 /* ---------------- FOOTER ---------------- */
 function Footer() {
   return (
-    <footer className="relative border-t border-white/5 px-4 py-12">
+    <footer className="relative border-t border-white/10 px-4 py-12">
       <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-[1.5fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-purple-500 to-cyan-400 text-sm font-black text-black">
+            <div
+              className="grid h-9 w-9 place-items-center rounded-lg text-sm font-black text-black"
+              style={{ background: GOLD }}
+            >
               FA
             </div>
-            <span className="font-display font-semibold">Fatiha Ansari</span>
+            <span className="font-display font-semibold text-white">Fatiha Ansari</span>
           </div>
           <p className="mt-3 max-w-sm text-sm text-white/60">
             Front-End Developer crafting premium web experiences with React & Tailwind CSS.
@@ -881,37 +898,37 @@ function Footer() {
           <ul className="mt-3 space-y-2 text-sm text-white/80">
             {["About", "Projects", "Services", "Contact"].map((l) => (
               <li key={l}>
-                <a href={`#${l.toLowerCase()}`} className="hover:text-white">{l}</a>
+                <a href={`#${l.toLowerCase()}`} className="hover:text-white">
+                  {l}
+                </a>
               </li>
             ))}
           </ul>
         </div>
         <div>
           <div className="text-xs uppercase tracking-widest text-white/50">Connect</div>
-          <div className="mt-3 flex gap-2">
-            {[
-              { icon: Github, href: "#" },
-              { icon: Linkedin, href: "https://www.linkedin.com/in/fatiha-ansari-88967b3a7/" },
-              { icon: Mail, href: "mailto:fatihaansari786@gmail.com" },
-              { icon: Phone, href: "#" },
-            ].map((s, i) => (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {socials.map((s) => (
               <a
-                key={i}
+                key={s.name}
                 href={s.href}
-                target={s.href.startsWith("http") ? "_blank" : undefined}
+                target="_blank"
                 rel="noopener noreferrer"
-                aria-label="social"
-                className="grid h-9 w-9 place-items-center rounded-lg glass hover:bg-white/10"
+                aria-label={s.name}
+                title={s.name}
+                className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-white/80 transition hover:border-white/30 hover:text-white"
               >
-                <s.icon size={15} />
+                <BrandIcon brand={s.brand} size={15} />
               </a>
             ))}
           </div>
         </div>
       </div>
-      <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-white/5 pt-6 text-xs text-white/50 sm:flex-row">
+      <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row">
         <div>© {new Date().getFullYear()} Fatiha Ansari · All rights reserved.</div>
-        <div>Made with <span className="text-fuchsia-400">❤</span> by Fatiha Ansari</div>
+        <div>
+          Made with <span style={{ color: GOLD }}>★</span> by Fatiha Ansari
+        </div>
       </div>
     </footer>
   );
@@ -921,20 +938,22 @@ function Footer() {
 function SectionHeader({
   eyebrow,
   title,
-  gradient,
+  accent,
 }: {
   eyebrow: string;
   title: string;
-  gradient: string;
+  accent: string;
 }) {
   return (
     <motion.div {...fadeUp} className="text-center">
-      <div className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-white/70">
-        <Sparkles size={12} className="text-cyan-400" />
+      <div
+        className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs uppercase tracking-[0.3em]"
+        style={{ borderColor: `${GOLD}55`, color: GOLD }}
+      >
         {eyebrow}
       </div>
-      <h2 className="mt-5 font-display text-4xl font-black leading-tight sm:text-5xl md:text-6xl">
-        {title} <span className="neon-text">{gradient}</span>
+      <h2 className="mt-5 font-display text-4xl font-semibold leading-tight text-white sm:text-5xl">
+        {title} <span style={{ color: GOLD }}>{accent}</span>
       </h2>
     </motion.div>
   );
