@@ -20,15 +20,13 @@ import {
 } from "lucide-react";
 import fatiha from "@/assets/portfolio/fatiha.jpeg";
 import {
-  CursorGlow,
   ScrollProgress,
   AuroraBackground,
-  FloatingParticles,
   LoadingScreen,
   MagneticButton,
-  TypingText,
   BackToTop,
 } from "@/components/portfolio/effects";
+
 import { projects, stack, tools, services } from "@/components/portfolio/data";
 
 export const Route = createFileRoute("/")({
