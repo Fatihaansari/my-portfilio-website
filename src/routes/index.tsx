@@ -179,151 +179,100 @@ function Nav() {
 /* ---------------- HERO ---------------- */
 function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden px-4 pt-32 pb-20 sm:pt-40">
-      <FloatingParticles count={40} />
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        {/* PHOTO */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-md"
-        >
-          {/* Decorative rings */}
-          <div className="absolute -inset-6 rounded-[2rem] border border-white/10 animate-spin-slow" />
-          <div className="absolute -inset-3 rounded-[1.8rem] border border-purple-400/30" />
-          {/* Floating dots */}
-          <div className="absolute -left-6 top-10 h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_16px_#22d3ee] animate-float" />
-          <div className="absolute -right-4 top-1/3 h-4 w-4 rounded-full bg-fuchsia-400 shadow-[0_0_18px_#f0abfc] animate-float-slow" />
-          <div className="absolute -bottom-4 left-1/3 h-3 w-3 rounded-full bg-purple-400 shadow-[0_0_16px_#8b5cf6] animate-float" style={{ animationDelay: "1.5s" }} />
+    <section id="top" className="relative px-4 pt-36 pb-24 sm:pt-44">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+        {/* TEXT */}
+        <div className="relative order-2 lg:order-1">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-1.5 text-[11px] uppercase tracking-[0.2em] text-white/60">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400/70" />
+              <span className="relative h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            </span>
+            Available for new projects — 2026
+          </div>
 
-          <div className="relative animate-float">
-            <div className="relative overflow-hidden rounded-[1.5rem] glass-strong p-2 neon-border animate-pulse-glow">
-              <img
-                src={fatiha}
-                alt="Fatiha Ansari, Front-End Developer"
-                loading="eager"
-                className="aspect-[4/5] w-full rounded-[1.2rem] object-cover"
-              />
-              {/* Overlay chip */}
-              <div className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full glass px-3 py-1.5 text-xs">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative h-2 w-2 rounded-full bg-emerald-400" />
-                </span>
-                <span className="text-white/90">Available for work</span>
+          <h1 className="font-display text-[2.75rem] font-medium leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-[5rem]">
+            Fatiha Ansari.
+            <br />
+            <span className="text-white/40">Front-end engineer</span>
+            <br />
+            <span className="neon-text">building refined interfaces.</span>
+          </h1>
+
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
+            I design and develop premium, production-grade web experiences with
+            React, TypeScript and Tailwind CSS — focused on clarity, motion and
+            measurable performance.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <a
+              href="#projects"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-white/90"
+            >
+              View selected work
+              <ArrowRight size={16} className="transition group-hover:translate-x-0.5" />
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white/90 transition hover:border-white/30 hover:bg-white/[0.04]"
+            >
+              <Mail size={15} /> Get in touch
+            </a>
+            <a
+              href="#"
+              className="inline-flex items-center gap-2 rounded-full px-4 py-3 text-sm font-medium text-white/60 transition hover:text-white"
+            >
+              <Download size={15} /> Resume
+            </a>
+          </div>
+
+          <div className="mt-14 grid max-w-lg grid-cols-3 gap-6 border-t border-white/10 pt-8">
+            <div>
+              <div className="font-display text-2xl font-medium text-white">20+</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-white/40">Projects</div>
+            </div>
+            <div>
+              <div className="font-display text-2xl font-medium text-white">2+ yrs</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-white/40">Experience</div>
+            </div>
+            <div>
+              <div className="font-display text-2xl font-medium text-white">Karachi</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-white/40">Remote · Global</div>
+            </div>
+          </div>
+        </div>
+
+        {/* PHOTO */}
+        <div className="relative order-1 mx-auto w-full max-w-sm lg:order-2">
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+            <img
+              src={fatiha}
+              alt="Fatiha Ansari, Front-End Developer"
+              loading="eager"
+              className="aspect-[4/5] w-full object-cover grayscale-[15%]"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.25em] text-white/60">Front-end Developer</div>
+                <div className="mt-1 font-display text-lg text-white">Fatiha Ansari</div>
+              </div>
+              <div className="rounded-full border border-white/20 bg-black/40 px-2.5 py-1 text-[10px] uppercase tracking-widest text-white/80 backdrop-blur">
+                PK · 2026
               </div>
             </div>
           </div>
-        </motion.div>
-
-        {/* TEXT */}
-        <div className="relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.7 }}
-            className="mb-5 inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-xs text-white/80"
-          >
-            <Sparkles size={14} className="text-cyan-400" />
-            Hello <span className="animate-float inline-block">👋</span> — I'm
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="font-display text-5xl font-black leading-[1.05] sm:text-6xl lg:text-7xl"
-          >
-            Fatiha <span className="neon-text">Ansari</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.7 }}
-            className="mt-4 text-xl font-semibold text-white/90 sm:text-2xl"
-          >
-            Front-End Developer
-            <span className="mx-2 text-white/30">·</span>
-            <span className="gradient-text">React & Tailwind</span>
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="mt-6 h-8 text-lg font-medium text-white/70 sm:text-xl"
-          >
-            <TypingText
-              words={[
-                "Frontend Developer",
-                "React Developer",
-                "UI Developer",
-                "Responsive Web Designer",
-              ]}
-            />
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.7 }}
-            className="mt-6 max-w-xl text-base leading-relaxed text-white/70"
-          >
-            I'm passionate about building modern, responsive and user-focused web
-            experiences using <span className="text-white">React</span>,{" "}
-            <span className="text-white">TypeScript</span> and{" "}
-            <span className="text-white">Tailwind CSS</span>.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.85, duration: 0.7 }}
-            className="mt-8 flex flex-wrap gap-3"
-          >
-            <MagneticButton
-              onClick={() => document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" })}
-              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 px-6 py-3 text-sm font-semibold text-black shadow-[0_10px_40px_-10px_rgba(139,92,246,0.8)]"
-            >
-              View Projects
-              <ArrowRight size={16} className="transition group-hover:translate-x-1" />
-            </MagneticButton>
-            <MagneticButton className="inline-flex items-center gap-2 rounded-full glass-strong px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">
-              <Download size={16} /> Download Resume
-            </MagneticButton>
-            <MagneticButton
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="inline-flex items-center gap-2 rounded-full border border-purple-400/40 px-6 py-3 text-sm font-semibold text-white hover:bg-purple-500/10"
-            >
-              Hire Me
-            </MagneticButton>
-            <MagneticButton
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white/80 hover:text-white"
-            >
-              <Mail size={16} /> Contact Me
-            </MagneticButton>
-          </motion.div>
-
-          {/* Floating tech icons */}
-          <div className="mt-10 hidden gap-6 text-white/40 sm:flex">
-            {["React", "TypeScript", "Tailwind", "Figma", "Git"].map((t, i) => (
-              <span
-                key={t}
-                className="rounded-full glass px-3 py-1 text-xs animate-float"
-                style={{ animationDelay: `${i * 0.4}s` }}
-              >
-                {t}
-              </span>
-            ))}
+          <div className="mt-4 flex items-center justify-between px-1 text-[11px] uppercase tracking-[0.2em] text-white/40">
+            <span>Portfolio / 001</span>
+            <span>React · TS · Tailwind</span>
           </div>
         </div>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- MARQUEE ---------------- */
 function Marquee() {
