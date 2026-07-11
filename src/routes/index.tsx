@@ -72,10 +72,10 @@ function Portfolio() {
   return (
     <div className="relative min-h-screen text-white">
       <LoadingScreen done={loaded} />
-      <CursorGlow />
       <ScrollProgress />
       <AuroraBackground />
       <BackToTop />
+
 
       <Nav />
       <main>
