@@ -39,11 +39,11 @@ export const Route = createFileRoute("/")({
         content:
           "Portfolio of Fatiha Ansari, a Front-End Developer crafting modern, responsive, and user-focused web experiences with React, TypeScript, and Tailwind CSS.",
       },
-      { property: "og:title", content: "Fatiha Ansari — Front-End Developer" },
+      { property: "og:title", content: "Fatiha Ansari — Front-End Developer & React Engineer" },
       {
         property: "og:description",
         content:
-          "Modern React & Tailwind portfolio — landing pages, business websites, and premium front-end interfaces.",
+          "Portfolio of Fatiha Ansari, a Front-End Developer crafting modern, responsive, and user-focused web experiences with React, TypeScript, and Tailwind CSS.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -77,13 +77,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Fatiha Ansari — Front-End Developer" },
+      { title: "Fatiha Ansari — Front-End Developer & React Engineer" },
       {
         name: "description",
         content:
-          "Portfolio of Fatiha Ansari, a Front-End Developer building modern, responsive web experiences with React, TypeScript & Tailwind CSS.",
+          "Portfolio of Fatiha Ansari, a Front-End Developer crafting modern, responsive, and user-focused web experiences with React, TypeScript, and Tailwind CSS.",
       },
       { name: "author", content: "Fatiha Ansari" },
+      { property: "og:title", content: "Fatiha Ansari — Front-End Developer & React Engineer" },
+      { name: "twitter:title", content: "Fatiha Ansari — Front-End Developer & React Engineer" },
+      { property: "og:description", content: "Portfolio of Fatiha Ansari, a Front-End Developer crafting modern, responsive, and user-focused web experiences with React, TypeScript, and Tailwind CSS." },
+      { name: "twitter:description", content: "Portfolio of Fatiha Ansari, a Front-End Developer crafting modern, responsive, and user-focused web experiences with React, TypeScript, and Tailwind CSS." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b66f8f06-ed47-4fc6-8b88-f64f3a804657/id-preview-540630ba--9d9a4248-1c4a-42ee-a9f0-dcc2db79ffff.lovable.app-1783781465402.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b66f8f06-ed47-4fc6-8b88-f64f3a804657/id-preview-540630ba--9d9a4248-1c4a-42ee-a9f0-dcc2db79ffff.lovable.app-1783781465402.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
