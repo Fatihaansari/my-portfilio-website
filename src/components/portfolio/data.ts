@@ -8,7 +8,17 @@ import project6 from "@/assets/portfolio/project6.png";
 import project7 from "@/assets/portfolio/project7.png";
 import project9 from "@/assets/portfolio/project9.png";
 
-export const projects = [
+export type Project = {
+  title: string;
+  description: string;
+  image: string;
+  tech: string[];
+  features: string[];
+  live?: string;
+  github?: string;
+};
+
+export const projects: Project[] = [
   {
     title: "Al Tawakal Restaurant",
     description:
@@ -17,7 +27,6 @@ export const projects = [
     tech: ["React", "Tailwind CSS", "Framer Motion", "Responsive"],
     features: ["Hero with live status", "Gallery", "Reviews", "Menu section"],
     live: "https://lnkd.in/dT8r2AbA",
-    github: "#",
   },
   {
     title: "Butterfly Maxi — Brand Campaign",
@@ -27,7 +36,6 @@ export const projects = [
     tech: ["React", "Tailwind CSS", "Framer Motion"],
     features: ["Animated cards", "Role grid", "Brand storytelling"],
     live: "https://lnkd.in/dHPw8hak",
-    github: "#",
   },
   {
     title: "Amazon Landing Clone",
@@ -36,8 +44,6 @@ export const projects = [
     image: amazon,
     tech: ["HTML5", "CSS3", "JavaScript", "Responsive"],
     features: ["Category grid", "Sticky nav", "Hero banner"],
-    live: "https://www.linkedin.com/in/fatiha-ansari-88967b3a7/",
-    github: "#",
   },
   {
     title: "myTunes — Music Landing",
@@ -46,8 +52,6 @@ export const projects = [
     image: project6,
     tech: ["HTML5", "CSS3", "JavaScript"],
     features: ["Cinematic hero", "Pricing tiers", "Device mockups"],
-    live: "#",
-    github: "#",
   },
   {
     title: "Foodie — Restaurant Menu",
@@ -56,8 +60,6 @@ export const projects = [
     image: project5,
     tech: ["HTML5", "CSS3", "JavaScript", "Responsive"],
     features: ["Menu grid", "Promo bar", "Reservation CTA"],
-    live: "#",
-    github: "#",
   },
   {
     title: "Full-Stack Developer Portfolio",
@@ -66,8 +68,6 @@ export const projects = [
     image: project4,
     tech: ["HTML5", "CSS3", "JavaScript"],
     features: ["Bold hero", "Service cards", "About section"],
-    live: "#",
-    github: "#",
   },
   {
     title: "Parallax Nature Site",
@@ -76,8 +76,6 @@ export const projects = [
     image: project3,
     tech: ["HTML5", "CSS3", "JavaScript", "Parallax"],
     features: ["Parallax effects", "Section reveals", "Cinematic imagery"],
-    live: "#",
-    github: "#",
   },
   {
     title: "GreatZone — Blog / Magazine",
@@ -86,8 +84,6 @@ export const projects = [
     image: project9,
     tech: ["HTML5", "CSS3", "Responsive"],
     features: ["Article grid", "Featured post", "Clean typography"],
-    live: "#",
-    github: "#",
   },
   {
     title: "YouTube Grid Clone",
@@ -96,26 +92,13 @@ export const projects = [
     image: project7,
     tech: ["HTML5", "CSS3", "Flexbox", "Grid"],
     features: ["Responsive grid", "Dark theme", "Sidebar nav"],
-    live: "#",
-    github: "#",
   },
 ];
 
 export const stack = [
-  { name: "HTML5", color: "#f97316" },
-  { name: "CSS3", color: "#3b82f6" },
-  { name: "JavaScript", color: "#facc15" },
-  { name: "TypeScript", color: "#38bdf8" },
-  { name: "React", color: "#22d3ee" },
-  { name: "Tailwind CSS", color: "#06b6d4" },
-  { name: "Bootstrap", color: "#a855f7" },
-  { name: "Git", color: "#f43f5e" },
-  { name: "GitHub", color: "#e5e7eb" },
-  { name: "REST API", color: "#10b981" },
-  { name: "Responsive Design", color: "#8b5cf6" },
-  { name: "SEO", color: "#22c55e" },
-  { name: "Accessibility", color: "#f472b6" },
-  { name: "Performance", color: "#fb923c" },
+  "HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Tailwind CSS",
+  "Bootstrap", "Git", "GitHub", "REST API", "Responsive Design",
+  "SEO", "Accessibility", "Performance",
 ];
 
 export const tools = [
@@ -125,23 +108,32 @@ export const tools = [
 ];
 
 export const services = [
-  { title: "Custom Landing Pages", icon: "✨" },
-  { title: "Responsive Business Websites", icon: "🌐" },
-  { title: "Portfolio Websites", icon: "💼" },
-  { title: "Restaurant Websites", icon: "🍽️" },
-  { title: "Digital Menu Pages", icon: "📱" },
-  { title: "AI Chatbot Integration", icon: "🤖" },
-  { title: "Contact Forms", icon: "📬" },
-  { title: "Lead Generation Forms", icon: "🎯" },
-  { title: "Modern React Websites", icon: "⚛️" },
-  { title: "Tailwind CSS Development", icon: "🎨" },
-  { title: "Website Redesign", icon: "🔁" },
-  { title: "Performance Optimization", icon: "⚡" },
-  { title: "SEO-Friendly Front-End", icon: "🔍" },
-  { title: "Resume & CV Design", icon: "📄" },
-  { title: "Poster Design", icon: "🖼️" },
-  { title: "Social Media Design", icon: "📸" },
-  { title: "Email Templates", icon: "✉️" },
-  { title: "Bug Fixes", icon: "🐛" },
-  { title: "Website Deployment", icon: "🚀" },
+  "Custom Landing Pages",
+  "Responsive Business Websites",
+  "Portfolio Websites",
+  "Restaurant Websites",
+  "Digital Menu Pages",
+  "AI Chatbot Integration",
+  "Contact Forms",
+  "Lead Generation Forms",
+  "Modern React Websites",
+  "Tailwind CSS Development",
+  "Website Redesign",
+  "Performance Optimization",
+  "SEO-Friendly Front-End",
+  "Resume & CV Design",
+  "Poster Design",
+  "Social Media Design",
+  "Email Templates",
+  "Bug Fixes",
+  "Website Deployment",
+];
+
+export const socials = [
+  { name: "GitHub", href: "https://github.com/Fatihaansari", brand: "github" as const },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/fatiha-ansari-88967b3a7/", brand: "linkedin" as const },
+  { name: "Freelancer", href: "https://www.freelancer.com/u/fatihaansari?frm=fatihaansari&sb=t", brand: "freelancer" as const },
+  { name: "Contra", href: "https://contra.com/fatiha_ansari_0nylahht?referralExperimentNid=DEFAULT_REFERRAL_PROGRAM&referrerUsername=fatiha_ansari_0nylahht", brand: "contra" as const },
+  { name: "Gumroad", href: "https://gumroad.com/", brand: "gumroad" as const },
+  { name: "Email", href: "mailto:fatihaansari786@gmail.com", brand: "email" as const },
 ];
