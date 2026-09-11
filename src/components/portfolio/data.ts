@@ -7,6 +7,7 @@ import project5 from "@/assets/portfolio/project5.png";
 import project6 from "@/assets/portfolio/project6.png";
 import project7 from "@/assets/portfolio/project7.png";
 import project9 from "@/assets/portfolio/project9.png";
+import cureThumb from "@/assets/portfolio/cure-thumbnail.png.asset.json";
 
 export type Project = {
   title: string;
@@ -19,6 +20,15 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    title: "Cure Dental Care",
+    description:
+      "Modern dental care landing page for a Karachi-based clinic — appointment CTAs, service highlights, social proof and contact integration.",
+    image: cureThumb.url,
+    tech: ["React", "Tailwind CSS", "Framer Motion", "Responsive"],
+    features: ["Hero with CTA", "Services section", "Call / WhatsApp buttons", "Google Reviews", "Social links"],
+    live: "https://curedentalcarecom.vercel.app",
+  },
   {
     title: "Al Tawakal Restaurant",
     description:
