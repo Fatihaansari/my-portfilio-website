@@ -21,6 +21,15 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Cure Dental Care",
+    description:
+      "Modern dental care landing page for a Karachi-based clinic — appointment CTAs, service highlights, social proof and contact integration.",
+    image: cureThumb.url,
+    tech: ["React", "Tailwind CSS", "Framer Motion", "Responsive"],
+    features: ["Hero with CTA", "Services section", "Call / WhatsApp buttons", "Google Reviews", "Social links"],
+    live: "https://curedentalcarecom.vercel.app",
+  },
+  {
     title: "Al Tawakal Restaurant",
     description:
       "Premium restaurant landing page for a beloved Karachi eatery — hero with reviews, menu highlights, gallery and contact CTA.",
