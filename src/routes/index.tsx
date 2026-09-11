@@ -616,72 +616,87 @@ function Services() {
   );
 }
 
-/* ---------------- CERTIFICATES ---------------- */
-function Certificates() {
-  const certs = [{ title: "IT Essentials", org: "JDC IT Center", year: "2024" }];
-  return (
-    <section id="certificates" className="relative px-4 py-28">
-      <div className="mx-auto max-w-7xl">
-        <SectionHeader eyebrow="Certificates" title="Recognized" accent="learning" />
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {certs.map((c) => (
-            <motion.div
-              key={c.title}
-              {...fadeUp}
-              className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]"
-            >
-              <div className="grid aspect-video place-items-center border-b border-white/5 bg-black/40">
-                <Award size={44} style={{ color: GOLD }} />
-              </div>
-              <div className="p-6">
-                <div className="text-xs uppercase tracking-widest" style={{ color: GOLD }}>
-                  {c.year}
-                </div>
-                <h3 className="mt-1 font-display text-xl font-semibold text-white">{c.title}</h3>
-                <p className="text-sm text-white/60">{c.org}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ---------------- EDUCATION ---------------- */
 function Education() {
   const items = [
-    { title: "Matric", org: "Aziz e Millat English Medium School", year: "" },
-    { title: "Intermediate", org: "Sir Syed Girls Government College", year: "2026" },
+    {
+      title: "Modern Web App Development",
+      org: "Saylani Mass IT Training Centre",
+      year: "2026",
+      desc: "Intensive training in modern web application development covering React, TypeScript, Tailwind CSS, and industry best practices.",
+    },
+    {
+      title: "Intermediate",
+      org: "Sir Syed Girls Government College",
+      year: "2026",
+      desc: "Currently pursuing intermediate education with focus on science and computer studies.",
+    },
+    {
+      title: "Matric",
+      org: "Aziz e Millat English Medium School",
+      year: "",
+      desc: "Completed secondary education with strong academic foundation.",
+    },
   ];
   return (
     <section id="education" className="relative px-4 py-28">
       <div className="mx-auto max-w-4xl">
         <SectionHeader eyebrow="Education" title="Academic" accent="journey" />
-        <div className="mt-14 space-y-4">
-          {items.map((it) => (
-            <motion.div
-              key={it.title}
-              {...fadeUp}
-              className="flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-6"
-            >
-              <div
-                className="grid h-10 w-10 shrink-0 place-items-center rounded-lg"
-                style={{ background: `${GOLD}22`, color: GOLD }}
+
+        <div className="relative mt-14">
+          {/* vertical line — hidden on small screens for a cleaner mobile view */}
+          <div
+            className="absolute top-0 bottom-0 left-5 hidden w-px md:left-1/2 md:block md:-translate-x-1/2"
+            style={{ background: `linear-gradient(to bottom, ${GOLD}40, ${GOLD}10)` }}
+          />
+
+          <div className="space-y-8 md:space-y-12">
+            {items.map((it, i) => (
+              <motion.div
+                key={it.title}
+                {...fadeUp}
+                className={`relative flex flex-col gap-4 md:flex-row md:items-center ${
+                  i % 2 === 0 ? "md:flex-row-reverse" : ""
+                }`}
               >
-                <GraduationCap size={18} />
-              </div>
-              <div className="flex-1">
-                <div className="text-xs uppercase tracking-widest" style={{ color: GOLD }}>
-                  {it.year || "—"}
+                {/* timeline dot */}
+                <div
+                  className="absolute top-6 left-5 z-10 hidden h-3 w-3 rounded-full border-2 border-black md:left-1/2 md:block md:-translate-x-1/2"
+                  style={{ background: GOLD }}
+                />
+
+                {/* card */}
+                <div className="md:w-1/2 md:px-8">
+                  <div className="relative flex items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition hover:border-white/20 sm:p-6">
+                    <div
+                      className="grid h-10 w-10 shrink-0 place-items-center rounded-lg"
+                      style={{ background: `${GOLD}22`, color: GOLD }}
+                    >
+                      <GraduationCap size={18} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span
+                          className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-black"
+                          style={{ background: GOLD }}
+                        >
+                          {it.year || "Completed"}
+                        </span>
+                      </div>
+                      <h3 className="mt-2 font-display text-lg font-semibold text-white sm:text-xl">
+                        {it.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-white/80">{it.org}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-white/55">{it.desc}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-1 font-display text-lg font-semibold text-white">
-                  {it.title}
-                </div>
-                <div className="text-sm text-white/70">{it.org}</div>
-              </div>
-            </motion.div>
-          ))}
+
+                {/* empty side for alternating layout on desktop */}
+                <div className="hidden md:block md:w-1/2" />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
