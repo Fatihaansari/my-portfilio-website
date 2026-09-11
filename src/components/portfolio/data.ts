@@ -32,6 +32,24 @@ export const projects: Project[] = [
     live: "https://curedentalcarecom.vercel.app",
   },
   {
+    title: "Neura Agency",
+    description:
+      "Sleek AI agency landing page for a Karachi-based software studio — agentic AI positioning, services, stats and project CTAs.",
+    image: neuraThumb.url,
+    tech: ["React", "Tailwind CSS", "Framer Motion", "Responsive"],
+    features: ["Gradient hero headline", "Service highlights", "Stats section", "Project CTAs"],
+    live: "https://ai-agency-website-two.vercel.app",
+  },
+  {
+    title: "Support Genie",
+    description:
+      "Local services marketplace landing page for hiring trusted professionals across Karachi, Lahore and Islamabad.",
+    image: supportGenieThumb.url,
+    tech: ["React", "Tailwind CSS", "Framer Motion", "Responsive"],
+    features: ["Search-first hero", "Service categories", "Trust badges", "City-focused messaging"],
+    live: "https://support-genie-psi.vercel.app",
+  },
+  {
     title: "Al Tawakal Restaurant",
     description:
       "Premium restaurant landing page for a beloved Karachi eatery — hero with reviews, menu highlights, gallery and contact CTA.",
