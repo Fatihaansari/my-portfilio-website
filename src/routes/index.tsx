@@ -116,7 +116,6 @@ function Portfolio() {
         <Tools />
         <Projects onOpen={setActiveProject} />
         <Services />
-        <Certificates />
         <Education />
         <GitHubSection />
         <Contact />
