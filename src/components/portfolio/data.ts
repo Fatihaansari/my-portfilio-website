@@ -8,6 +8,8 @@ import project6 from "@/assets/portfolio/project6.png";
 import project7 from "@/assets/portfolio/project7.png";
 import project9 from "@/assets/portfolio/project9.png";
 import cureThumb from "@/assets/portfolio/cure-thumbnail.png.asset.json";
+import neuraThumb from "@/assets/portfolio/neura-thumbnail.png.asset.json";
+import supportGenieThumb from "@/assets/portfolio/support-genie-thumbnail.png.asset.json";
 
 export type Project = {
   title: string;
