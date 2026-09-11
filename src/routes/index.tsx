@@ -8,7 +8,6 @@ import {
   Download,
   ExternalLink,
   ArrowRight,
-  Award,
   GraduationCap,
   Send,
   X,
