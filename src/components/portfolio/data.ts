@@ -8,6 +8,8 @@ import project6 from "@/assets/portfolio/project6.png";
 import project7 from "@/assets/portfolio/project7.png";
 import project9 from "@/assets/portfolio/project9.png";
 import cureThumb from "@/assets/portfolio/cure-thumbnail.png.asset.json";
+import neuraThumb from "@/assets/portfolio/neura-thumbnail.png.asset.json";
+import supportGenieThumb from "@/assets/portfolio/support-genie-thumbnail.png.asset.json";
 
 export type Project = {
   title: string;
@@ -28,6 +30,24 @@ export const projects: Project[] = [
     tech: ["React", "Tailwind CSS", "Framer Motion", "Responsive"],
     features: ["Hero with CTA", "Services section", "Call / WhatsApp buttons", "Google Reviews", "Social links"],
     live: "https://curedentalcarecom.vercel.app",
+  },
+  {
+    title: "Neura Agency",
+    description:
+      "Sleek AI agency landing page for a Karachi-based software studio — agentic AI positioning, services, stats and project CTAs.",
+    image: neuraThumb.url,
+    tech: ["React", "Tailwind CSS", "Framer Motion", "Responsive"],
+    features: ["Gradient hero headline", "Service highlights", "Stats section", "Project CTAs"],
+    live: "https://ai-agency-website-two.vercel.app",
+  },
+  {
+    title: "Support Genie",
+    description:
+      "Local services marketplace landing page for hiring trusted professionals across Karachi, Lahore and Islamabad.",
+    image: supportGenieThumb.url,
+    tech: ["React", "Tailwind CSS", "Framer Motion", "Responsive"],
+    features: ["Search-first hero", "Service categories", "Trust badges", "City-focused messaging"],
+    live: "https://support-genie-psi.vercel.app",
   },
   {
     title: "Al Tawakal Restaurant",
