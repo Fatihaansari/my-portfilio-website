@@ -1,15 +1,17 @@
-import altawakal from "@/assets/portfolio/altawakal.png";
-import butterfly from "@/assets/portfolio/butterfly.png";
-import amazon from "@/assets/portfolio/amazon.png";
-import project3 from "@/assets/portfolio/project3.png";
-import project4 from "@/assets/portfolio/project4.png";
-import project5 from "@/assets/portfolio/project5.png";
-import project6 from "@/assets/portfolio/project6.png";
-import project7 from "@/assets/portfolio/project7.png";
-import project9 from "@/assets/portfolio/project9.png";
-import cureThumb from "@/assets/portfolio/cure-thumbnail.png.asset.json";
-import neuraThumb from "@/assets/portfolio/neura-thumbnail.png.asset.json";
-import supportGenieThumb from "@/assets/portfolio/support-genie-thumbnail.png.asset.json";
+// All images live in public/images so the site works on any static host
+// (GitHub Pages, Vercel, Netlify) without bundler-specific imports.
+const altawakal = "/images/altawakal.png";
+const butterfly = "/images/butterfly.png";
+const amazon = "/images/amazon.png";
+const project3 = "/images/project3.png";
+const project4 = "/images/project4.png";
+const project5 = "/images/project5.png";
+const project6 = "/images/project6.png";
+const project7 = "/images/project7.png";
+const project9 = "/images/project9.png";
+const cureThumb = { url: "/images/cure-thumbnail.png" };
+const neuraThumb = { url: "/images/neura-thumbnail.png" };
+const supportGenieThumb = { url: "/images/support-genie-thumbnail.png" };
 
 export type Project = {
   title: string;
