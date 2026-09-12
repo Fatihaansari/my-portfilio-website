@@ -14,7 +14,7 @@ import {
   MapPin,
   Check,
 } from "lucide-react";
-import fatiha from "@/assets/portfolio/fatiha.jpeg";
+const fatiha = "/images/fatiha.jpeg";
 import {
   ScrollProgress,
   LoadingScreen,
